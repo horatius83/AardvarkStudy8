@@ -61,38 +61,6 @@ def EightsQuizFunction(vocabWords):
                 session[question]['tried'] += 1
                 word['lastAsked'] = GetTime()
             wrongWords = futureWrongWords    
-        """
-        correctWords = dict([(x['question'],False) for x in section])
-        while(False in correctWords.values()):
-            wrongAnswers = [x for x in section if correctWords[x['question']] == False]
-            lastWrongAnswer = wrongAnswers[-1]
-            section = ShuffleList(section)
-            if section[0] == lastWrongAnswer:
-                section = section[1:] + [lastWrongAnswer]
-            Clear()
-            print('{1} of {2} {0}%'.format(100.0 * count / lengthOfSections, count, lengthOfSections))
-            for question in section:
-                q = question["question"]
-                if(correctWords[q] == True):
-                    continue
-                result = AskQuestion(q, question['answer'])
-                if q not in session.keys():
-                    session[q] = {'tried' : 0, 'failed' : 0}
-                if result == None:
-                    return (session, vocabWords)
-                elif result == False:
-                    question['failed'] += 1
-                    session[q]['failed'] += 1
-                    correctWords[q] = False
-                    while result == False:
-                        if result != "":
-                            Clear()
-                        result = AskQuestion(q,question['answer'])
-                else:
-                    correctWords[q] = True
-                question['tried'] += 1
-                session[q]['tried'] += 1
-                question['lastAsked'] = GetTime()"""
     return (session, vocabWords)
             
 def StandardQuizFunction(vocabWords):
@@ -115,7 +83,6 @@ def StandardQuizFunction(vocabWords):
 
 def Quiz(quizObj, quizFunction):
     session, quizObj['vocab'] = quizFunction(quizObj['vocab'])
-    #sortedQuestions = sorted(quizObj['vocab'], key=lambda x: x['question'])
     attempted = [x for x in session.keys() if session[x]['tried'] > 0]
     for question in attempted:
         tried = session[question]['tried']
